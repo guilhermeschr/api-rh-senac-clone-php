@@ -47,7 +47,7 @@ class Routes {
 
             // Ping
             $app->get('/ping', ControllerApiBase::class . ':callPing');
-                        
+            
             // Folhas de pagamento
             // $app->get('/folha', ControllerApiFolhaPagamento::class . ':index');
             
@@ -87,23 +87,23 @@ class Routes {
             
             $headers = $request->getHeaders();
             
-            if(isset($headers["HTTP_APIKEY"]) && is_array($headers["HTTP_APIKEY"])){
-                $token = $headers["HTTP_APIKEY"][0];
-                if (trim($token) == "") {
-                    $data = array("message" => "Acesso inválido - TOKEN - Envio:" . $token);
-                    return $response->withJson($data, 401);
-                }
-            
-                // Verifica se esse token de usuario existe
-                if (!Routes::isValidTokenUsuario($token)) {
-                    $data = array("message" => "Token inválido", "token informado:" => $token);
-                    return $response->withJson($data, 401);
-                }
-                
-            } else {
-                $data = array("message" => "Token inválido!");
-                return $response->withJson($data, 401);
-            }
+            // if(isset($headers["HTTP_APIKEY"]) && is_array($headers["HTTP_APIKEY"])){
+            //     $token = $headers["HTTP_APIKEY"][0];
+            //     if (trim($token) == "") {
+            //         $data = array("message" => "Acesso inválido - TOKEN - Envio:" . $token);
+            //         return $response->withJson($data, 401);
+            //     }
+            //
+            //     // Verifica se esse token de usuario existe
+            //     if (!Routes::isValidTokenUsuario($token)) {
+            //         $data = array("message" => "Token inválido", "token informado:" => $token);
+            //         return $response->withJson($data, 401);
+            //     }
+            //
+            // } else {
+            //     $data = array("message" => "Token inválido!");
+            //     return $response->withJson($data, 401);
+            // }
 
             $response = $next($request, $response);
 
