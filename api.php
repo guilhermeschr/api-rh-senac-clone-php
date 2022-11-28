@@ -49,7 +49,7 @@ class Routes {
             $app->get('/ping', ControllerApiBase::class . ':callPing');
             
             // Folhas de pagamento
-            // $app->get('/folha', ControllerApiFolhaPagamento::class . ':index');
+            $app->get('/folha', ControllerApiFolhaPagamento::class . ':index');
             
         })->add($this->getMiddlewares());
 
