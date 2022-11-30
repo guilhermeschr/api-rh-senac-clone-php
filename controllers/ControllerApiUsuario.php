@@ -191,7 +191,7 @@ class ControllerApiUsuario extends ControllerApiBase {
         return false;
     }
     
-    private function deleteUsuario(Request $request, Response $response, array $args){
+    public function deleteUsuario(Request $request, Response $response, array $args){
         $body = $request->getParsedBody();
         
         $usucodigo = isset($body["usucodigo"]) ? $body["usucodigo"] : false;
