@@ -15,4 +15,27 @@ class ControllerApiFolhaPagamento extends ControllerApiBase {
     
         return $response->withJson($aDados, 200);
     }
+    
+    public function detalhaFolha(Request $request, Response $response, array $args) {
+        $codigofolha = intval($args['codigofolha']);
+        if($codigofolha > 0){
+            $sSql = " select tbfolhadetalhe.codigoverba,
+                             tbfolhaverba.descricao as verba,
+                             tbfolhadetalhe.quantidade,
+                             tbfolhaverba.valorunitario,
+                             tbfolhadetalhe.provento,
+                             tbfolhadetalhe.desconto
+                        from tbfolhaverba
+                  inner join tbfolhadetalhe on (tbfolhadetalhe.codigoverba = tbfolhaverba.id)
+                       where tbfolhadetalhe.focodigo = $codigofolha";
+        
+            $aDados = $this->getQuery()->selectAll($sSql);
+            
+            return $response->withJson($aDados, 200);
+        }
+    
+        $aDados = array("status" => false, "mensagem" => "Não foi informado o parametro 'codigofolha'!");
+        
+        return $response->withJson($aDados, 400);
+    }
 }

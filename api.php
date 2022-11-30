@@ -10,6 +10,7 @@ require_once("core/Utils.php");
 
 require_once("controllers/ControllerApiBase.php");
 require_once("controllers/ControllerApiFolhaPagamento.php");
+require_once("controllers/ControllerApiUsuario.php");
 
 class Routes {
 
@@ -47,9 +48,20 @@ class Routes {
 
             // Ping
             $app->get('/ping', ControllerApiBase::class . ':callPing');
+            $app->post('/ping', ControllerApiBase::class . ':callPing');
             
             // Folhas de pagamento
             $app->get('/folha', ControllerApiFolhaPagamento::class . ':index');
+            $app->get('/folhadetalhe/{codigofolha}', ControllerApiFolhaPagamento::class . ':detalhaFolha');
+    
+            // Cadastros - Usuarios
+            $app->get('/users', ControllerApiUsuario::class . ':getUsuario');
+            $app->post('/users', ControllerApiUsuario::class . ':gravaUsuario');
+            $app->delete('/users', ControllerApiUsuario::class . ':deleteUsuario');
+            $app->post('/login', ControllerApiUsuario::class . ':loginUsuario');
+            $app->put('/updatepassword', ControllerApiUsuario::class . ':updatePassword');
+    
+            //$app->get('/logintest', ControllerApiUsuario::class . ':loginUsuario');
             
         })->add($this->getMiddlewares());
 
